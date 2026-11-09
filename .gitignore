@@ -1,5 +1,15 @@
+# Python environment
 .venv/
 __pycache__/
 .ipynb_checkpoints/
 *.pyc
 .vscode/
+
+# Large experimental datasets
+*.npy
+
+# Generated model and intermediate data
+*.npz
+
+# Generated reports and plots
+reports/
