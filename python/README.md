@@ -67,18 +67,9 @@ These files are the **ground truth** for the RTL testbench `tb_unified_readout.s
 ### `verify_mem_files.ipynb`
 Loads the frozen `.mem` files and runs the integer algorithm in Python to confirm bit-exact agreement with the golden prediction vectors — **no raw dataset required**.
 
-## `design_freeze/` Directory
+## `design_freeze/` → `constraints/`
 
-Contains the generated `.mem` files for each design variant. These are committed to the repository so that:
-1. The RTL simulation can be run without installing Python or the dataset
-2. Third parties can verify bit-exact agreement between the Python model and RTL
-
-| Variant | Description |
-|---------|-------------|
-| `unified/` | Active design — all 4 profiles packed into single ROMs |
-| `bus5/` | Superconducting 5-qubit bus |
-| `spin_bus5/` | Spin-qubit 5-qubit bus |
-| `spin_single/` | Spin-qubit single |
+The notebooks in this folder write their frozen `.mem` output files directly to `../constraints/` (the single source of truth for all hardware weight files). There is no separate `python/design_freeze/` directory in the repository — `constraints/` serves both the Python pipeline and the RTL simulation.
 
 ## Dependencies
 

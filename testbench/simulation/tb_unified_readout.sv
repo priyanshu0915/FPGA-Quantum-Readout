@@ -13,8 +13,10 @@
 
 module tb_unified_readout;
 
-    localparam string UNIFIED_DIR = "D:/MSU/Qubit_readout_FPGA/python/design_freeze/unified/";
-    localparam string GOLDEN_DIR  = "D:/MSU/Qubit_readout_FPGA/python/design_freeze/unified/golden/";
+    // !! SET THESE TO YOUR LOCAL CHECKOUT PATH BEFORE SIMULATING !!
+    // e.g. "C:/Users/you/FPGA-Quantum-Readout/constraints/unified/"
+    localparam string UNIFIED_DIR = "D:/MSU/Qubit_readout_FPGA/constraints/unified/";
+    localparam string GOLDEN_DIR  = "D:/MSU/Qubit_readout_FPGA/constraints/unified/golden/";
     localparam integer N_SHOTS    = 100;
     localparam integer MAX_SAMPS  = 200000;
     localparam real    CLK_PERIOD = 2.0; // 500 MHz

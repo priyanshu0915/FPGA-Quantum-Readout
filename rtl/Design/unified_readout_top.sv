@@ -12,7 +12,7 @@
 `timescale 1ns / 1ps
 
 module unified_readout_top #(
-    parameter         DIR          = "D:/MSU/Qubit_readout_FPGA/python/design_freeze/unified/",
+    parameter         DIR          = "D:/MSU/Qubit_readout_FPGA/constraints/unified/",
     parameter integer T_SC         = 500,
     parameter integer T_SPIN       = 1600,
     parameter integer T_MAX        = 4096,

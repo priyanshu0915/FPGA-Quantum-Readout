@@ -26,3 +26,6 @@ reports/
 *.str
 .Xil/
 vivado_pid*.str
+
+# python/design_freeze/ is a duplicate of constraints/ — single source of truth is constraints/
+python/design_freeze/
