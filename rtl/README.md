@@ -20,7 +20,7 @@ unified_readout_top
 | `normalizer_unified.sv` | 3–7 | 5 cycles | Integer bit-shift normalizer (3-stage barrel shift) |
 | `classifier_poly_unified.sv` | 8–14 | 7 cycles | 47-term NG-RC quadratic polynomial classifier |
 
-**Total pipeline latency: 17 clock cycles (≈ 34 ns at 500 MHz)**
+**Total pipeline latency: 17 clock cycles (34 ns @ 500 MHz on RFSoC / 59.5 ns @ 285.7 MHz on Zynq-7000)**
 
 ## Key Design Parameters
 
@@ -43,7 +43,7 @@ All parameters are set at instantiation time in `unified_readout_top.sv`:
 
 | Port | Dir | Width | Description |
 |------|-----|-------|-------------|
-| `clk` | in | 1 | System clock (up to 333 MHz synthesized) |
+| `clk` | in | 1 | System clock (architected for 500 MHz on RFSoC; closed timing at 285.7 MHz on Zynq-7000 `xc7z045ffg900-2`) |
 | `rst_n` | in | 1 | Active-low synchronous reset |
 | `trig_profile_sel` | in | 2 | Per-shot profile select from QICK tProcessor |
 | `soft_override_en` | in | 1 | Enable PS/AXI-Lite parameter override |
@@ -58,11 +58,12 @@ All parameters are set at instantiation time in `unified_readout_top.sv`:
 
 ## ROM File Loading
 
-Each submodule loads its weights via `$readmemh` at elaboration time. The `DIR` parameter in `unified_readout_top` is the common prefix. When running simulation, set `DIR` to the absolute or relative path of `python/design_freeze/unified/` in your checkout.
+Each submodule loads its weights via `$readmemh` at elaboration time. The `DIR` parameter in `unified_readout_top` is the common prefix. When running simulation with `testbench/simulation/tb_unified_readout.sv`, edit `UNIFIED_DIR` and `GOLDEN_DIR` directly at the top of the testbench to point to `constraints/unified/` and `constraints/unified/golden/` in your local checkout (the testbench passes `UNIFIED_DIR` into `dut`'s `.DIR` parameter).
 
-**Example (Vivado simulation settings):**
-```
-unified_readout_top.DIR = "/home/user/FPGA-Quantum-Readout/python/design_freeze/unified/"
+**Example (`testbench/simulation/tb_unified_readout.sv`):**
+```systemverilog
+localparam string UNIFIED_DIR = "/home/user/FPGA-Quantum-Readout/constraints/unified/";
+localparam string GOLDEN_DIR  = "/home/user/FPGA-Quantum-Readout/constraints/unified/golden/";
 ```
 
 ## References

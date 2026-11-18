@@ -5,7 +5,7 @@
 | File | Description |
 |------|-------------|
 | `simulation/tb_unified_readout.sv` | Mixed-mode runtime reconfiguration testbench |
-| `timing.xdc` | Synthesis clock constraint (333 MHz / 3 ns period) |
+| `timing.xdc` | Synthesis clock constraint (285.7 MHz / 3.5 ns period) |
 
 ## Testbench — `tb_unified_readout.sv`
 
@@ -25,11 +25,11 @@ Streams **100 interleaved shots** across all 4 readout profiles back-to-back:
 
 ### Golden vector files
 The testbench loads `.mem` files using `$readmemh`. These point to:
-- `python/design_freeze/unified/tb_mixed_input.mem` — input IQ stream
-- `python/design_freeze/unified/tb_mixed_meta.mem` — per-shot profile + T
-- `python/design_freeze/unified/tb_mixed_pred.mem` — expected predictions
+- `constraints/unified/golden/tb_mixed_input.mem` — input IQ stream
+- `constraints/unified/golden/tb_mixed_meta.mem` — per-shot profile + T
+- `constraints/unified/golden/tb_mixed_pred.mem` — expected predictions
 
-> **Before simulating:** Set the `UNIFIED_DIR` and `GOLDEN_DIR` localparams at the top of `tb_unified_readout.sv` to the **absolute path** of these directories on your machine.
+> **Before simulating:** Edit the `UNIFIED_DIR` and `GOLDEN_DIR` `localparam`s directly at the top of `tb_unified_readout.sv` to the **absolute path** of `constraints/unified/` and `constraints/unified/golden/` on your machine (`UNIFIED_DIR` is passed automatically to `dut`'s `.DIR` parameter).
 
 ### Expected output (PASS condition)
 ```
@@ -49,7 +49,7 @@ The testbench loads `.mem` files using `$readmemh`. These point to:
 ## Timing Constraint — `timing.xdc`
 
 ```tcl
-create_clock -period 3.000 -name clk [get_ports clk]
+create_clock -period 3.500 -name clk [get_ports clk]
 ```
 
-Constrains the design to **333 MHz** (3 ns period). Synthesis WNS = +0.195 ns on `xc7z045ffg900-2`. The design is clocked at **500 MHz** in the QICK platform (2 ns period); full implementation with place & route is required to close timing at that frequency.
+Closed post-synthesis timing at **285.7 MHz** (3.5 ns period, WNS = +0.195 ns, 59.5 ns latency for 17 cycles) on Zynq-7000 (`xc7z045ffg900-2`). The RTL is architected for **500 MHz** (2.0 ns period, 34 ns latency) on Zynq UltraScale+ RFSoC (QICK ZCU111/ZCU216).

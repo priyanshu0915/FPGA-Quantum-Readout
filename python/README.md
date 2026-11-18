@@ -8,20 +8,15 @@ This directory contains the full Python pipeline from raw data exploration to ge
 Raw Dataset (not in repo)
         │
         ▼
-step0_inspection            → Inspect raw IQ traces, verify dataset structure
 step1_2_filters_baselines   → Baseline classifiers, matched-filter exploration
 step3_ngrc_classifier       → Train NG-RC quadratic polynomial classifier
 step4_fixed_point           → Fixed-point quantization sweep (bit widths, accuracy)
-step5_crosstalk             → Single-qubit baseline with crosstalk analysis
-step5c_boxcar_vs_dualfilter → Compare boxcar integration vs. dual-filter
-step5_multiqubit_pipeline   → 5-qubit pipeline assembly
+step5c_boxcar_vs_dualfilter → Compare boxcar integration vs. dual-filter (5-qubit bus)
 step6_baselines             → Final baselines comparison
-step7                       → Extended analysis
 step8_compare_3_approaches  → Compare linear / poly / NG-RC classifiers
         │
         ▼
 gen_synth_datasets          → Generate synthetic 5-qubit bus datasets
-dataset_label               → Label and curate dataset splits
         │
         ▼
 freeze_design               → Quantize best model → .mem files (per variant)
@@ -54,13 +49,13 @@ Packs the four variant weight files into unified 4-profile ROM images:
 - `unified_cls_w_q[0-4].mem` — 4-profile × 47 weights
 - `unified_cls_thr_q[0-4].mem` — 4-profile thresholds
 
-Output goes to `design_freeze/unified/`.
+Output is stored in `../constraints/unified/`.
 
 ### `make_mixed_tb.ipynb`
-Generates 100 interleaved golden test shots across all 4 profiles. Writes:
-- `design_freeze/unified/golden/tb_mixed_input.mem` — concatenated IQ sample stream
-- `design_freeze/unified/golden/tb_mixed_meta.mem` — per-shot `{profile[1:0], T[12:0]}`
-- `design_freeze/unified/golden/tb_mixed_pred.mem` — expected qubit predictions
+Generates 100 interleaved golden test shots across all 4 profiles. Reference files are stored in:
+- `../constraints/unified/golden/tb_mixed_input.mem` — concatenated IQ sample stream
+- `../constraints/unified/golden/tb_mixed_meta.mem` — per-shot `{profile[1:0], T[12:0]}`
+- `../constraints/unified/golden/tb_mixed_pred.mem` — expected qubit predictions
 
 These files are the **ground truth** for the RTL testbench `tb_unified_readout.sv`.
 
