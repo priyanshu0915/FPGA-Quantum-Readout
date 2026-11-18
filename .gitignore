@@ -5,11 +5,24 @@ __pycache__/
 *.pyc
 .vscode/
 
-# Large experimental datasets
+# Large experimental datasets (raw IQ measurement data — not for redistribution)
 *.npy
 
-# Generated model and intermediate data
+# Generated model and intermediate data (large binary blobs — regenerate via notebooks)
 *.npz
 
-# Generated reports and plots
+# Exception: small golden vector archives inside constraints/ are committed as .mem files
+# (the .npz equivalents are excluded here)
+constraints/**/golden/*.npz
+python/design_freeze/**/golden/*.npz
+
+# Vivado synthesis/implementation outputs (regenerate via Vivado — see reports/ locally)
 reports/
+
+# Vivado project files (machine-specific)
+*.xpr
+*.jou
+*.log
+*.str
+.Xil/
+vivado_pid*.str
