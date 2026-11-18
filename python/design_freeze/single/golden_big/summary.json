@@ -1,0 +1,20 @@
+{
+  "N_TOTAL": 2204,
+  "N_REAL": 2000,
+  "n_random_full": 100,
+  "n_random_adc": 100,
+  "model_fidelity_real": {
+    "F0": 0.9704433497536946,
+    "F1": 0.9512690355329949,
+    "F": 0.9608561926433448
+  },
+  "acc_bits_used_real": 28,
+  "acc_bits_used_all": 34,
+  "acc_bits_worst_case": 34,
+  "score_bits_used_real": 23,
+  "score_bits_used_all": 23,
+  "score_bits_declared": 23,
+  "frac_real_shots_saturating_v": 0.0,
+  "frac_random_full_saturating_v": 0.98,
+  "frac_random_adc_saturating_v": 0.0
+}
